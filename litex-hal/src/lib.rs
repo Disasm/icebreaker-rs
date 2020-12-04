@@ -6,6 +6,8 @@ pub mod delay;
 #[cfg(with_gpio)]
 pub mod gpio;
 
+pub use embedded_hal as hal;
+
 pub use litex_pac as pac;
 pub mod prelude;
 
