@@ -1,0 +1,1939 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<device schemaVersion="1.1" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="CMSIS-SVD.xsd" >
+    <vendor>litex</vendor>
+    <name>SOC</name>
+
+    <addressUnitBits>8</addressUnitBits>
+    <width>32</width>
+    <size>32</size>
+    <access>read-write</access>
+    <resetValue>0x00000000</resetValue>
+    <resetMask>0xFFFFFFFF</resetMask>
+
+    <peripherals>
+        <peripheral>
+            <name>CTRL</name>
+            <baseAddress>0xE0000000</baseAddress>
+            <groupName>CTRL</groupName>
+            <registers>
+                <register>
+                    <name>RESET</name>
+                    <description><![CDATA[Any write to this register will reset the SoC.]]></description>
+                    <addressOffset>0x0000</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>reset</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
+                            <lsb>0</lsb>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>SCRATCH</name>
+                    <description><![CDATA[Use this register as a scratch space to verify that software read/write accesses
+to the Wishbone/CSR bus are working correctly. The initial reset value of
+0x1234578 can be used to verify endianness.]]></description>
+                    <addressOffset>0x0004</addressOffset>
+                    <resetValue>0x12345678</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>scratch</name>
+                            <msb>31</msb>
+                            <bitRange>[31:0]</bitRange>
+                            <lsb>0</lsb>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>BUS_ERRORS</name>
+                    <description><![CDATA[Total number of Wishbone bus errors (timeouts) since start.]]></description>
+                    <addressOffset>0x0008</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>bus_errors</name>
+                            <msb>31</msb>
+                            <bitRange>[31:0]</bitRange>
+                            <lsb>0</lsb>
+                        </field>
+                    </fields>
+                </register>
+            </registers>
+            <addressBlock>
+                <offset>0</offset>
+                <size>0xc</size>
+                <usage>registers</usage>
+            </addressBlock>
+        </peripheral>
+        <peripheral>
+            <name>UART_PHY</name>
+            <baseAddress>0xE0001000</baseAddress>
+            <groupName>UART_PHY</groupName>
+            <registers>
+                <register>
+                    <name>TUNING_WORD</name>
+                    <addressOffset>0x0000</addressOffset>
+                    <resetValue>0x1678303</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>tuning_word</name>
+                            <msb>31</msb>
+                            <bitRange>[31:0]</bitRange>
+                            <lsb>0</lsb>
+                        </field>
+                    </fields>
+                </register>
+            </registers>
+            <addressBlock>
+                <offset>0</offset>
+                <size>0x4</size>
+                <usage>registers</usage>
+            </addressBlock>
+        </peripheral>
+        <peripheral>
+            <name>UART</name>
+            <baseAddress>0xE0001800</baseAddress>
+            <groupName>UART</groupName>
+            <registers>
+                <register>
+                    <name>RXTX</name>
+                    <addressOffset>0x0000</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>rxtx</name>
+                            <msb>7</msb>
+                            <bitRange>[7:0]</bitRange>
+                            <lsb>0</lsb>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>TXFULL</name>
+                    <addressOffset>0x0004</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>txfull</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
+                            <lsb>0</lsb>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>RXEMPTY</name>
+                    <addressOffset>0x0008</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>rxempty</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
+                            <lsb>0</lsb>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>EV_STATUS</name>
+                    <description><![CDATA[This register contains the current raw level of the rx event trigger.  Writes to
+this register have no effect.]]></description>
+                    <addressOffset>0x000c</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>tx</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
+                            <lsb>0</lsb>
+                            <description><![CDATA[Level of the ``tx`` event]]></description>
+                        </field>
+                        <field>
+                            <name>rx</name>
+                            <msb>1</msb>
+                            <bitRange>[1:1]</bitRange>
+                            <lsb>1</lsb>
+                            <description><![CDATA[Level of the ``rx`` event]]></description>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>EV_PENDING</name>
+                    <description><![CDATA[When a  rx event occurs, the corresponding bit will be set in this register.  To
+clear the Event, set the corresponding bit in this register.]]></description>
+                    <addressOffset>0x0010</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>tx</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
+                            <lsb>0</lsb>
+                            <description><![CDATA[`1` if a `tx` event occurred. This Event is triggered on a **falling** edge.]]></description>
+                        </field>
+                        <field>
+                            <name>rx</name>
+                            <msb>1</msb>
+                            <bitRange>[1:1]</bitRange>
+                            <lsb>1</lsb>
+                            <description><![CDATA[`1` if a `rx` event occurred. This Event is triggered on a **falling** edge.]]></description>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>EV_ENABLE</name>
+                    <description><![CDATA[This register enables the corresponding rx events.  Write a ``0`` to this
+register to disable individual events.]]></description>
+                    <addressOffset>0x0014</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>tx</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
+                            <lsb>0</lsb>
+                            <description><![CDATA[Write a ``1`` to enable the ``tx`` Event]]></description>
+                        </field>
+                        <field>
+                            <name>rx</name>
+                            <msb>1</msb>
+                            <bitRange>[1:1]</bitRange>
+                            <lsb>1</lsb>
+                            <description><![CDATA[Write a ``1`` to enable the ``rx`` Event]]></description>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>TXEMPTY</name>
+                    <addressOffset>0x0018</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>txempty</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
+                            <lsb>0</lsb>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>RXFULL</name>
+                    <addressOffset>0x001c</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>rxfull</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
+                            <lsb>0</lsb>
+                        </field>
+                    </fields>
+                </register>
+            </registers>
+            <addressBlock>
+                <offset>0</offset>
+                <size>0x20</size>
+                <usage>registers</usage>
+            </addressBlock>
+        </peripheral>
+        <peripheral>
+            <name>TIMER0</name>
+            <baseAddress>0xE0002000</baseAddress>
+            <groupName>TIMER0</groupName>
+            <registers>
+                <register>
+                    <name>LOAD</name>
+                    <description><![CDATA[Load value when Timer is (re-)enabled. In One-Shot mode, the value written to
+this register specifies the Timer's duration in clock cycles.]]></description>
+                    <addressOffset>0x0000</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>load</name>
+                            <msb>31</msb>
+                            <bitRange>[31:0]</bitRange>
+                            <lsb>0</lsb>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>RELOAD</name>
+                    <description><![CDATA[Reload value when Timer reaches ``0``. In Periodic mode, the value written to
+this register specify the Timer's period in clock cycles.]]></description>
+                    <addressOffset>0x0004</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>reload</name>
+                            <msb>31</msb>
+                            <bitRange>[31:0]</bitRange>
+                            <lsb>0</lsb>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>EN</name>
+                    <description><![CDATA[Enable flag of the Timer. Set this flag to ``1`` to enable/start the Timer.  Set
+to ``0`` to disable the Timer.]]></description>
+                    <addressOffset>0x0008</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>en</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
+                            <lsb>0</lsb>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>UPDATE_VALUE</name>
+                    <description><![CDATA[Update trigger for the current countdown value. A write to this register latches
+the current countdown value to ``value`` register.]]></description>
+                    <addressOffset>0x000c</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>update_value</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
+                            <lsb>0</lsb>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>VALUE</name>
+                    <description><![CDATA[Latched countdown value. This value is updated by writing to ``update_value``.]]></description>
+                    <addressOffset>0x0010</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>value</name>
+                            <msb>31</msb>
+                            <bitRange>[31:0]</bitRange>
+                            <lsb>0</lsb>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>EV_STATUS</name>
+                    <description><![CDATA[This register contains the current raw level of the zero event trigger.  Writes
+to this register have no effect.]]></description>
+                    <addressOffset>0x0014</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>zero</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
+                            <lsb>0</lsb>
+                            <description><![CDATA[Level of the ``zero`` event]]></description>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>EV_PENDING</name>
+                    <description><![CDATA[When a  zero event occurs, the corresponding bit will be set in this register.
+To clear the Event, set the corresponding bit in this register.]]></description>
+                    <addressOffset>0x0018</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>zero</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
+                            <lsb>0</lsb>
+                            <description><![CDATA[`1` if a `zero` event occurred. This Event is triggered on a **falling** edge.]]></description>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>EV_ENABLE</name>
+                    <description><![CDATA[This register enables the corresponding zero events.  Write a ``0`` to this
+register to disable individual events.]]></description>
+                    <addressOffset>0x001c</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>zero</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
+                            <lsb>0</lsb>
+                            <description><![CDATA[Write a ``1`` to enable the ``zero`` Event]]></description>
+                        </field>
+                    </fields>
+                </register>
+            </registers>
+            <addressBlock>
+                <offset>0</offset>
+                <size>0x20</size>
+                <usage>registers</usage>
+            </addressBlock>
+        </peripheral>
+        <peripheral>
+            <name>SPIFLASH</name>
+            <baseAddress>0xE0002800</baseAddress>
+            <groupName>SPIFLASH</groupName>
+            <registers>
+                <register>
+                    <name>BITBANG</name>
+                    <description><![CDATA[Bitbang controls for SPI output.  Only standard 1x SPI is supported, and as a
+result all four wires are ganged together.  This means that it is only possible
+to perform half-duplex operations, using this SPI core.]]></description>
+                    <addressOffset>0x0000</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>mosi</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
+                            <lsb>0</lsb>
+                            <description><![CDATA[Output value for MOSI pin, valid whenever ``dir`` is ``0``.]]></description>
+                        </field>
+                        <field>
+                            <name>clk</name>
+                            <msb>1</msb>
+                            <bitRange>[1:1]</bitRange>
+                            <lsb>1</lsb>
+                            <description><![CDATA[Output value for SPI CLK pin.]]></description>
+                        </field>
+                        <field>
+                            <name>cs_n</name>
+                            <msb>2</msb>
+                            <bitRange>[2:2]</bitRange>
+                            <lsb>2</lsb>
+                            <description><![CDATA[Output value for SPI CSn pin.]]></description>
+                        </field>
+                        <field>
+                            <name>dir</name>
+                            <msb>3</msb>
+                            <bitRange>[3:3]</bitRange>
+                            <lsb>3</lsb>
+                            <description><![CDATA[Sets the direction for *ALL* SPI data pins except CLK and CSn.]]></description>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>MISO</name>
+                    <description><![CDATA[Incoming value of MISO signal.]]></description>
+                    <addressOffset>0x0004</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>miso</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
+                            <lsb>0</lsb>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>BITBANG_EN</name>
+                    <description><![CDATA[Write a ``1`` here to disable memory-mapped mode and enable bitbang mode.]]></description>
+                    <addressOffset>0x0008</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>bitbang_en</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
+                            <lsb>0</lsb>
+                        </field>
+                    </fields>
+                </register>
+            </registers>
+            <addressBlock>
+                <offset>0</offset>
+                <size>0xc</size>
+                <usage>registers</usage>
+            </addressBlock>
+        </peripheral>
+        <peripheral>
+            <name>CLOCK</name>
+            <baseAddress>0xE0003000</baseAddress>
+            <groupName>CLOCK</groupName>
+            <registers>
+                <register>
+                    <name>CORECLK</name>
+                    <description><![CDATA[Core clock frequency]]></description>
+                    <addressOffset>0x0000</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>coreclk</name>
+                            <msb>31</msb>
+                            <bitRange>[31:0]</bitRange>
+                            <lsb>0</lsb>
+                        </field>
+                    </fields>
+                </register>
+            </registers>
+            <addressBlock>
+                <offset>0</offset>
+                <size>0x4</size>
+                <usage>registers</usage>
+            </addressBlock>
+        </peripheral>
+        <peripheral>
+            <name>GPIO</name>
+            <baseAddress>0xE0003800</baseAddress>
+            <groupName>GPIO</groupName>
+            <registers>
+                <register>
+                    <name>DIR</name>
+                    <description><![CDATA[GPIO pin direction]]></description>
+                    <addressOffset>0x0000</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>dir0</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
+                            <lsb>0</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir1</name>
+                            <msb>1</msb>
+                            <bitRange>[1:1]</bitRange>
+                            <lsb>1</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir2</name>
+                            <msb>2</msb>
+                            <bitRange>[2:2]</bitRange>
+                            <lsb>2</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir3</name>
+                            <msb>3</msb>
+                            <bitRange>[3:3]</bitRange>
+                            <lsb>3</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir4</name>
+                            <msb>4</msb>
+                            <bitRange>[4:4]</bitRange>
+                            <lsb>4</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir5</name>
+                            <msb>5</msb>
+                            <bitRange>[5:5]</bitRange>
+                            <lsb>5</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir6</name>
+                            <msb>6</msb>
+                            <bitRange>[6:6]</bitRange>
+                            <lsb>6</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir7</name>
+                            <msb>7</msb>
+                            <bitRange>[7:7]</bitRange>
+                            <lsb>7</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir8</name>
+                            <msb>8</msb>
+                            <bitRange>[8:8]</bitRange>
+                            <lsb>8</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir9</name>
+                            <msb>9</msb>
+                            <bitRange>[9:9]</bitRange>
+                            <lsb>9</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir10</name>
+                            <msb>10</msb>
+                            <bitRange>[10:10]</bitRange>
+                            <lsb>10</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir11</name>
+                            <msb>11</msb>
+                            <bitRange>[11:11]</bitRange>
+                            <lsb>11</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir12</name>
+                            <msb>12</msb>
+                            <bitRange>[12:12]</bitRange>
+                            <lsb>12</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir13</name>
+                            <msb>13</msb>
+                            <bitRange>[13:13]</bitRange>
+                            <lsb>13</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir14</name>
+                            <msb>14</msb>
+                            <bitRange>[14:14]</bitRange>
+                            <lsb>14</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir15</name>
+                            <msb>15</msb>
+                            <bitRange>[15:15]</bitRange>
+                            <lsb>15</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir16</name>
+                            <msb>16</msb>
+                            <bitRange>[16:16]</bitRange>
+                            <lsb>16</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir17</name>
+                            <msb>17</msb>
+                            <bitRange>[17:17]</bitRange>
+                            <lsb>17</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir18</name>
+                            <msb>18</msb>
+                            <bitRange>[18:18]</bitRange>
+                            <lsb>18</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir19</name>
+                            <msb>19</msb>
+                            <bitRange>[19:19]</bitRange>
+                            <lsb>19</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir20</name>
+                            <msb>20</msb>
+                            <bitRange>[20:20]</bitRange>
+                            <lsb>20</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir21</name>
+                            <msb>21</msb>
+                            <bitRange>[21:21]</bitRange>
+                            <lsb>21</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir22</name>
+                            <msb>22</msb>
+                            <bitRange>[22:22]</bitRange>
+                            <lsb>22</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir23</name>
+                            <msb>23</msb>
+                            <bitRange>[23:23]</bitRange>
+                            <lsb>23</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir24</name>
+                            <msb>24</msb>
+                            <bitRange>[24:24]</bitRange>
+                            <lsb>24</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir25</name>
+                            <msb>25</msb>
+                            <bitRange>[25:25]</bitRange>
+                            <lsb>25</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir26</name>
+                            <msb>26</msb>
+                            <bitRange>[26:26]</bitRange>
+                            <lsb>26</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir27</name>
+                            <msb>27</msb>
+                            <bitRange>[27:27]</bitRange>
+                            <lsb>27</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir28</name>
+                            <msb>28</msb>
+                            <bitRange>[28:28]</bitRange>
+                            <lsb>28</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir29</name>
+                            <msb>29</msb>
+                            <bitRange>[29:29]</bitRange>
+                            <lsb>29</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir30</name>
+                            <msb>30</msb>
+                            <bitRange>[30:30]</bitRange>
+                            <lsb>30</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                        <field>
+                            <name>dir31</name>
+                            <msb>31</msb>
+                            <bitRange>[31:31]</bitRange>
+                            <lsb>31</lsb>
+                            <description><![CDATA[Pin direction]]></description>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>OTYPER</name>
+                    <description><![CDATA[GPIO output type register]]></description>
+                    <addressOffset>0x0004</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>otype0</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
+                            <lsb>0</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype1</name>
+                            <msb>1</msb>
+                            <bitRange>[1:1]</bitRange>
+                            <lsb>1</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype2</name>
+                            <msb>2</msb>
+                            <bitRange>[2:2]</bitRange>
+                            <lsb>2</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype3</name>
+                            <msb>3</msb>
+                            <bitRange>[3:3]</bitRange>
+                            <lsb>3</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype4</name>
+                            <msb>4</msb>
+                            <bitRange>[4:4]</bitRange>
+                            <lsb>4</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype5</name>
+                            <msb>5</msb>
+                            <bitRange>[5:5]</bitRange>
+                            <lsb>5</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype6</name>
+                            <msb>6</msb>
+                            <bitRange>[6:6]</bitRange>
+                            <lsb>6</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype7</name>
+                            <msb>7</msb>
+                            <bitRange>[7:7]</bitRange>
+                            <lsb>7</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype8</name>
+                            <msb>8</msb>
+                            <bitRange>[8:8]</bitRange>
+                            <lsb>8</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype9</name>
+                            <msb>9</msb>
+                            <bitRange>[9:9]</bitRange>
+                            <lsb>9</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype10</name>
+                            <msb>10</msb>
+                            <bitRange>[10:10]</bitRange>
+                            <lsb>10</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype11</name>
+                            <msb>11</msb>
+                            <bitRange>[11:11]</bitRange>
+                            <lsb>11</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype12</name>
+                            <msb>12</msb>
+                            <bitRange>[12:12]</bitRange>
+                            <lsb>12</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype13</name>
+                            <msb>13</msb>
+                            <bitRange>[13:13]</bitRange>
+                            <lsb>13</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype14</name>
+                            <msb>14</msb>
+                            <bitRange>[14:14]</bitRange>
+                            <lsb>14</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype15</name>
+                            <msb>15</msb>
+                            <bitRange>[15:15]</bitRange>
+                            <lsb>15</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype16</name>
+                            <msb>16</msb>
+                            <bitRange>[16:16]</bitRange>
+                            <lsb>16</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype17</name>
+                            <msb>17</msb>
+                            <bitRange>[17:17]</bitRange>
+                            <lsb>17</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype18</name>
+                            <msb>18</msb>
+                            <bitRange>[18:18]</bitRange>
+                            <lsb>18</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype19</name>
+                            <msb>19</msb>
+                            <bitRange>[19:19]</bitRange>
+                            <lsb>19</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype20</name>
+                            <msb>20</msb>
+                            <bitRange>[20:20]</bitRange>
+                            <lsb>20</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype21</name>
+                            <msb>21</msb>
+                            <bitRange>[21:21]</bitRange>
+                            <lsb>21</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype22</name>
+                            <msb>22</msb>
+                            <bitRange>[22:22]</bitRange>
+                            <lsb>22</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype23</name>
+                            <msb>23</msb>
+                            <bitRange>[23:23]</bitRange>
+                            <lsb>23</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype24</name>
+                            <msb>24</msb>
+                            <bitRange>[24:24]</bitRange>
+                            <lsb>24</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype25</name>
+                            <msb>25</msb>
+                            <bitRange>[25:25]</bitRange>
+                            <lsb>25</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype26</name>
+                            <msb>26</msb>
+                            <bitRange>[26:26]</bitRange>
+                            <lsb>26</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype27</name>
+                            <msb>27</msb>
+                            <bitRange>[27:27]</bitRange>
+                            <lsb>27</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype28</name>
+                            <msb>28</msb>
+                            <bitRange>[28:28]</bitRange>
+                            <lsb>28</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype29</name>
+                            <msb>29</msb>
+                            <bitRange>[29:29]</bitRange>
+                            <lsb>29</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype30</name>
+                            <msb>30</msb>
+                            <bitRange>[30:30]</bitRange>
+                            <lsb>30</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                        <field>
+                            <name>otype31</name>
+                            <msb>31</msb>
+                            <bitRange>[31:31]</bitRange>
+                            <lsb>31</lsb>
+                            <description><![CDATA[Pin output type]]></description>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>IDR</name>
+                    <description><![CDATA[GPIO input data register]]></description>
+                    <addressOffset>0x0008</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>id0</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
+                            <lsb>0</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id1</name>
+                            <msb>1</msb>
+                            <bitRange>[1:1]</bitRange>
+                            <lsb>1</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id2</name>
+                            <msb>2</msb>
+                            <bitRange>[2:2]</bitRange>
+                            <lsb>2</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id3</name>
+                            <msb>3</msb>
+                            <bitRange>[3:3]</bitRange>
+                            <lsb>3</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id4</name>
+                            <msb>4</msb>
+                            <bitRange>[4:4]</bitRange>
+                            <lsb>4</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id5</name>
+                            <msb>5</msb>
+                            <bitRange>[5:5]</bitRange>
+                            <lsb>5</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id6</name>
+                            <msb>6</msb>
+                            <bitRange>[6:6]</bitRange>
+                            <lsb>6</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id7</name>
+                            <msb>7</msb>
+                            <bitRange>[7:7]</bitRange>
+                            <lsb>7</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id8</name>
+                            <msb>8</msb>
+                            <bitRange>[8:8]</bitRange>
+                            <lsb>8</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id9</name>
+                            <msb>9</msb>
+                            <bitRange>[9:9]</bitRange>
+                            <lsb>9</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id10</name>
+                            <msb>10</msb>
+                            <bitRange>[10:10]</bitRange>
+                            <lsb>10</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id11</name>
+                            <msb>11</msb>
+                            <bitRange>[11:11]</bitRange>
+                            <lsb>11</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id12</name>
+                            <msb>12</msb>
+                            <bitRange>[12:12]</bitRange>
+                            <lsb>12</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id13</name>
+                            <msb>13</msb>
+                            <bitRange>[13:13]</bitRange>
+                            <lsb>13</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id14</name>
+                            <msb>14</msb>
+                            <bitRange>[14:14]</bitRange>
+                            <lsb>14</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id15</name>
+                            <msb>15</msb>
+                            <bitRange>[15:15]</bitRange>
+                            <lsb>15</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id16</name>
+                            <msb>16</msb>
+                            <bitRange>[16:16]</bitRange>
+                            <lsb>16</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id17</name>
+                            <msb>17</msb>
+                            <bitRange>[17:17]</bitRange>
+                            <lsb>17</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id18</name>
+                            <msb>18</msb>
+                            <bitRange>[18:18]</bitRange>
+                            <lsb>18</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id19</name>
+                            <msb>19</msb>
+                            <bitRange>[19:19]</bitRange>
+                            <lsb>19</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id20</name>
+                            <msb>20</msb>
+                            <bitRange>[20:20]</bitRange>
+                            <lsb>20</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id21</name>
+                            <msb>21</msb>
+                            <bitRange>[21:21]</bitRange>
+                            <lsb>21</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id22</name>
+                            <msb>22</msb>
+                            <bitRange>[22:22]</bitRange>
+                            <lsb>22</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id23</name>
+                            <msb>23</msb>
+                            <bitRange>[23:23]</bitRange>
+                            <lsb>23</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id24</name>
+                            <msb>24</msb>
+                            <bitRange>[24:24]</bitRange>
+                            <lsb>24</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id25</name>
+                            <msb>25</msb>
+                            <bitRange>[25:25]</bitRange>
+                            <lsb>25</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id26</name>
+                            <msb>26</msb>
+                            <bitRange>[26:26]</bitRange>
+                            <lsb>26</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id27</name>
+                            <msb>27</msb>
+                            <bitRange>[27:27]</bitRange>
+                            <lsb>27</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id28</name>
+                            <msb>28</msb>
+                            <bitRange>[28:28]</bitRange>
+                            <lsb>28</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id29</name>
+                            <msb>29</msb>
+                            <bitRange>[29:29]</bitRange>
+                            <lsb>29</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id30</name>
+                            <msb>30</msb>
+                            <bitRange>[30:30]</bitRange>
+                            <lsb>30</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                        <field>
+                            <name>id31</name>
+                            <msb>31</msb>
+                            <bitRange>[31:31]</bitRange>
+                            <lsb>31</lsb>
+                            <description><![CDATA[Pin input data]]></description>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>ODR</name>
+                    <description><![CDATA[GPIO output data register]]></description>
+                    <addressOffset>0x000c</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>od0</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
+                            <lsb>0</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od1</name>
+                            <msb>1</msb>
+                            <bitRange>[1:1]</bitRange>
+                            <lsb>1</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od2</name>
+                            <msb>2</msb>
+                            <bitRange>[2:2]</bitRange>
+                            <lsb>2</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od3</name>
+                            <msb>3</msb>
+                            <bitRange>[3:3]</bitRange>
+                            <lsb>3</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od4</name>
+                            <msb>4</msb>
+                            <bitRange>[4:4]</bitRange>
+                            <lsb>4</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od5</name>
+                            <msb>5</msb>
+                            <bitRange>[5:5]</bitRange>
+                            <lsb>5</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od6</name>
+                            <msb>6</msb>
+                            <bitRange>[6:6]</bitRange>
+                            <lsb>6</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od7</name>
+                            <msb>7</msb>
+                            <bitRange>[7:7]</bitRange>
+                            <lsb>7</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od8</name>
+                            <msb>8</msb>
+                            <bitRange>[8:8]</bitRange>
+                            <lsb>8</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od9</name>
+                            <msb>9</msb>
+                            <bitRange>[9:9]</bitRange>
+                            <lsb>9</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od10</name>
+                            <msb>10</msb>
+                            <bitRange>[10:10]</bitRange>
+                            <lsb>10</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od11</name>
+                            <msb>11</msb>
+                            <bitRange>[11:11]</bitRange>
+                            <lsb>11</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od12</name>
+                            <msb>12</msb>
+                            <bitRange>[12:12]</bitRange>
+                            <lsb>12</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od13</name>
+                            <msb>13</msb>
+                            <bitRange>[13:13]</bitRange>
+                            <lsb>13</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od14</name>
+                            <msb>14</msb>
+                            <bitRange>[14:14]</bitRange>
+                            <lsb>14</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od15</name>
+                            <msb>15</msb>
+                            <bitRange>[15:15]</bitRange>
+                            <lsb>15</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od16</name>
+                            <msb>16</msb>
+                            <bitRange>[16:16]</bitRange>
+                            <lsb>16</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od17</name>
+                            <msb>17</msb>
+                            <bitRange>[17:17]</bitRange>
+                            <lsb>17</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od18</name>
+                            <msb>18</msb>
+                            <bitRange>[18:18]</bitRange>
+                            <lsb>18</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od19</name>
+                            <msb>19</msb>
+                            <bitRange>[19:19]</bitRange>
+                            <lsb>19</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od20</name>
+                            <msb>20</msb>
+                            <bitRange>[20:20]</bitRange>
+                            <lsb>20</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od21</name>
+                            <msb>21</msb>
+                            <bitRange>[21:21]</bitRange>
+                            <lsb>21</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od22</name>
+                            <msb>22</msb>
+                            <bitRange>[22:22]</bitRange>
+                            <lsb>22</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od23</name>
+                            <msb>23</msb>
+                            <bitRange>[23:23]</bitRange>
+                            <lsb>23</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od24</name>
+                            <msb>24</msb>
+                            <bitRange>[24:24]</bitRange>
+                            <lsb>24</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od25</name>
+                            <msb>25</msb>
+                            <bitRange>[25:25]</bitRange>
+                            <lsb>25</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od26</name>
+                            <msb>26</msb>
+                            <bitRange>[26:26]</bitRange>
+                            <lsb>26</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od27</name>
+                            <msb>27</msb>
+                            <bitRange>[27:27]</bitRange>
+                            <lsb>27</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od28</name>
+                            <msb>28</msb>
+                            <bitRange>[28:28]</bitRange>
+                            <lsb>28</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od29</name>
+                            <msb>29</msb>
+                            <bitRange>[29:29]</bitRange>
+                            <lsb>29</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od30</name>
+                            <msb>30</msb>
+                            <bitRange>[30:30]</bitRange>
+                            <lsb>30</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                        <field>
+                            <name>od31</name>
+                            <msb>31</msb>
+                            <bitRange>[31:31]</bitRange>
+                            <lsb>31</lsb>
+                            <description><![CDATA[Pin output data]]></description>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>BSR</name>
+                    <description><![CDATA[GPIO bit set register]]></description>
+                    <addressOffset>0x0010</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>bs0</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
+                            <lsb>0</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs1</name>
+                            <msb>1</msb>
+                            <bitRange>[1:1]</bitRange>
+                            <lsb>1</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs2</name>
+                            <msb>2</msb>
+                            <bitRange>[2:2]</bitRange>
+                            <lsb>2</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs3</name>
+                            <msb>3</msb>
+                            <bitRange>[3:3]</bitRange>
+                            <lsb>3</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs4</name>
+                            <msb>4</msb>
+                            <bitRange>[4:4]</bitRange>
+                            <lsb>4</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs5</name>
+                            <msb>5</msb>
+                            <bitRange>[5:5]</bitRange>
+                            <lsb>5</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs6</name>
+                            <msb>6</msb>
+                            <bitRange>[6:6]</bitRange>
+                            <lsb>6</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs7</name>
+                            <msb>7</msb>
+                            <bitRange>[7:7]</bitRange>
+                            <lsb>7</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs8</name>
+                            <msb>8</msb>
+                            <bitRange>[8:8]</bitRange>
+                            <lsb>8</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs9</name>
+                            <msb>9</msb>
+                            <bitRange>[9:9]</bitRange>
+                            <lsb>9</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs10</name>
+                            <msb>10</msb>
+                            <bitRange>[10:10]</bitRange>
+                            <lsb>10</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs11</name>
+                            <msb>11</msb>
+                            <bitRange>[11:11]</bitRange>
+                            <lsb>11</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs12</name>
+                            <msb>12</msb>
+                            <bitRange>[12:12]</bitRange>
+                            <lsb>12</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs13</name>
+                            <msb>13</msb>
+                            <bitRange>[13:13]</bitRange>
+                            <lsb>13</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs14</name>
+                            <msb>14</msb>
+                            <bitRange>[14:14]</bitRange>
+                            <lsb>14</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs15</name>
+                            <msb>15</msb>
+                            <bitRange>[15:15]</bitRange>
+                            <lsb>15</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs16</name>
+                            <msb>16</msb>
+                            <bitRange>[16:16]</bitRange>
+                            <lsb>16</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs17</name>
+                            <msb>17</msb>
+                            <bitRange>[17:17]</bitRange>
+                            <lsb>17</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs18</name>
+                            <msb>18</msb>
+                            <bitRange>[18:18]</bitRange>
+                            <lsb>18</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs19</name>
+                            <msb>19</msb>
+                            <bitRange>[19:19]</bitRange>
+                            <lsb>19</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs20</name>
+                            <msb>20</msb>
+                            <bitRange>[20:20]</bitRange>
+                            <lsb>20</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs21</name>
+                            <msb>21</msb>
+                            <bitRange>[21:21]</bitRange>
+                            <lsb>21</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs22</name>
+                            <msb>22</msb>
+                            <bitRange>[22:22]</bitRange>
+                            <lsb>22</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs23</name>
+                            <msb>23</msb>
+                            <bitRange>[23:23]</bitRange>
+                            <lsb>23</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs24</name>
+                            <msb>24</msb>
+                            <bitRange>[24:24]</bitRange>
+                            <lsb>24</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs25</name>
+                            <msb>25</msb>
+                            <bitRange>[25:25]</bitRange>
+                            <lsb>25</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs26</name>
+                            <msb>26</msb>
+                            <bitRange>[26:26]</bitRange>
+                            <lsb>26</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs27</name>
+                            <msb>27</msb>
+                            <bitRange>[27:27]</bitRange>
+                            <lsb>27</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs28</name>
+                            <msb>28</msb>
+                            <bitRange>[28:28]</bitRange>
+                            <lsb>28</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs29</name>
+                            <msb>29</msb>
+                            <bitRange>[29:29]</bitRange>
+                            <lsb>29</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs30</name>
+                            <msb>30</msb>
+                            <bitRange>[30:30]</bitRange>
+                            <lsb>30</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs31</name>
+                            <msb>31</msb>
+                            <bitRange>[31:31]</bitRange>
+                            <lsb>31</lsb>
+                            <description><![CDATA[Pin set bit]]></description>
+                        </field>
+                    </fields>
+                </register>
+                <register>
+                    <name>BRR</name>
+                    <description><![CDATA[GPIO bit reset register]]></description>
+                    <addressOffset>0x0014</addressOffset>
+                    <resetValue>0x00</resetValue>
+                    <size>32</size>
+                    <fields>
+                        <field>
+                            <name>bs0</name>
+                            <msb>0</msb>
+                            <bitRange>[0:0]</bitRange>
+                            <lsb>0</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs1</name>
+                            <msb>1</msb>
+                            <bitRange>[1:1]</bitRange>
+                            <lsb>1</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs2</name>
+                            <msb>2</msb>
+                            <bitRange>[2:2]</bitRange>
+                            <lsb>2</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs3</name>
+                            <msb>3</msb>
+                            <bitRange>[3:3]</bitRange>
+                            <lsb>3</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs4</name>
+                            <msb>4</msb>
+                            <bitRange>[4:4]</bitRange>
+                            <lsb>4</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs5</name>
+                            <msb>5</msb>
+                            <bitRange>[5:5]</bitRange>
+                            <lsb>5</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs6</name>
+                            <msb>6</msb>
+                            <bitRange>[6:6]</bitRange>
+                            <lsb>6</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs7</name>
+                            <msb>7</msb>
+                            <bitRange>[7:7]</bitRange>
+                            <lsb>7</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs8</name>
+                            <msb>8</msb>
+                            <bitRange>[8:8]</bitRange>
+                            <lsb>8</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs9</name>
+                            <msb>9</msb>
+                            <bitRange>[9:9]</bitRange>
+                            <lsb>9</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs10</name>
+                            <msb>10</msb>
+                            <bitRange>[10:10]</bitRange>
+                            <lsb>10</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs11</name>
+                            <msb>11</msb>
+                            <bitRange>[11:11]</bitRange>
+                            <lsb>11</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs12</name>
+                            <msb>12</msb>
+                            <bitRange>[12:12]</bitRange>
+                            <lsb>12</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs13</name>
+                            <msb>13</msb>
+                            <bitRange>[13:13]</bitRange>
+                            <lsb>13</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs14</name>
+                            <msb>14</msb>
+                            <bitRange>[14:14]</bitRange>
+                            <lsb>14</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs15</name>
+                            <msb>15</msb>
+                            <bitRange>[15:15]</bitRange>
+                            <lsb>15</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs16</name>
+                            <msb>16</msb>
+                            <bitRange>[16:16]</bitRange>
+                            <lsb>16</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs17</name>
+                            <msb>17</msb>
+                            <bitRange>[17:17]</bitRange>
+                            <lsb>17</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs18</name>
+                            <msb>18</msb>
+                            <bitRange>[18:18]</bitRange>
+                            <lsb>18</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs19</name>
+                            <msb>19</msb>
+                            <bitRange>[19:19]</bitRange>
+                            <lsb>19</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs20</name>
+                            <msb>20</msb>
+                            <bitRange>[20:20]</bitRange>
+                            <lsb>20</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs21</name>
+                            <msb>21</msb>
+                            <bitRange>[21:21]</bitRange>
+                            <lsb>21</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs22</name>
+                            <msb>22</msb>
+                            <bitRange>[22:22]</bitRange>
+                            <lsb>22</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs23</name>
+                            <msb>23</msb>
+                            <bitRange>[23:23]</bitRange>
+                            <lsb>23</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs24</name>
+                            <msb>24</msb>
+                            <bitRange>[24:24]</bitRange>
+                            <lsb>24</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs25</name>
+                            <msb>25</msb>
+                            <bitRange>[25:25]</bitRange>
+                            <lsb>25</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs26</name>
+                            <msb>26</msb>
+                            <bitRange>[26:26]</bitRange>
+                            <lsb>26</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs27</name>
+                            <msb>27</msb>
+                            <bitRange>[27:27]</bitRange>
+                            <lsb>27</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs28</name>
+                            <msb>28</msb>
+                            <bitRange>[28:28]</bitRange>
+                            <lsb>28</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs29</name>
+                            <msb>29</msb>
+                            <bitRange>[29:29]</bitRange>
+                            <lsb>29</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs30</name>
+                            <msb>30</msb>
+                            <bitRange>[30:30]</bitRange>
+                            <lsb>30</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                        <field>
+                            <name>bs31</name>
+                            <msb>31</msb>
+                            <bitRange>[31:31]</bitRange>
+                            <lsb>31</lsb>
+                            <description><![CDATA[Pin reset bit]]></description>
+                        </field>
+                    </fields>
+                </register>
+            </registers>
+            <addressBlock>
+                <offset>0</offset>
+                <size>0x18</size>
+                <usage>registers</usage>
+            </addressBlock>
+        </peripheral>
+    </peripherals>
+    <vendorExtensions>
+        <memoryRegions>
+            <memoryRegion>
+                <name>SRAM</name>
+                <baseAddress>0x10000000</baseAddress>
+                <size>0x00020000</size>
+            </memoryRegion>
+            <memoryRegion>
+                <name>SPIFLASH</name>
+                <baseAddress>0x20000000</baseAddress>
+                <size>0x01000000</size>
+            </memoryRegion>
+            <memoryRegion>
+                <name>ROM</name>
+                <baseAddress>0x20040000</baseAddress>
+                <size>0x00FC0000</size>
+            </memoryRegion>
+            <memoryRegion>
+                <name>CSR</name>
+                <baseAddress>0xE0000000</baseAddress>
+                <size>0x00010000</size>
+            </memoryRegion>
+        </memoryRegions>
+    </vendorExtensions>
+</device>

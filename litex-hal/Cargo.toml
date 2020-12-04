@@ -1,0 +1,14 @@
+[package]
+name = "litex-hal"
+version = "0.1.0"
+authors = ["disasm"]
+edition = "2018"
+
+[dependencies]
+litex-pac = { path = "../litex-pac" }
+embedded-hal = { version = "0.2.4", features = ["unproven"] }
+nb = "1.0.0"
+riscv = "0.6.0"
+
+[build-dependencies]
+litex-pac = { path = "../litex-pac" }

@@ -1,0 +1,19 @@
+[package]
+name = "firmware"
+version = "0.1.0"
+authors = ["disasm"]
+edition = "2018"
+
+[dependencies]
+litex-hal = { path = "../litex-hal" }
+riscv-rt = "0.8.0"
+panic-halt = "0.2"
+riscv = "0.6.0"
+
+[profile.release]
+# Keep debug information for release builds, for easier debugging.
+debug = true
+# Improve code generation
+lto = true
+codegen-units = 1
+#opt-level = "s"
