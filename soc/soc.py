@@ -154,7 +154,6 @@ class BaseSoC(SoCCore):
         pin_names = ["PMOD1A:%d" % i for i in range(8)] +\
                     ["PMOD1B:%d" % i for i in range(8)] +\
                     ["PMOD2:%d" % i for i in range(8)]
-        pin_names = list(filter(lambda s: not s.startswith("PMOD1B"), pin_names))
         gpio_extension = [("gpio", i, Pins(name), IOStandard("LVCMOS33"))
                           for i, name in enumerate(pin_names)]
         platform.add_extension(gpio_extension)
