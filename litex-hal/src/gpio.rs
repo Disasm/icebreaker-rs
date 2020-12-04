@@ -1,5 +1,5 @@
 use litex_pac::peripherals::gpio;
-use litex_pac::{read_reg, modify_reg};
+use litex_pac::{read_reg, write_reg, modify_reg};
 use core::marker::PhantomData;
 use riscv::interrupt;
 use embedded_hal::digital::v2::*;
@@ -122,20 +122,16 @@ impl<MODE> OutputPin for Pin<Output<MODE>> {
     type Error = Infallible;
 
     fn set_low(&mut self) -> Result<(), Self::Error> {
-        interrupt::free(|_| {
-            let gpio = unsafe { &*litex_pac::gpio::GPIO };
-            let mask = 1u32 << self.index;
-            modify_reg!(gpio, gpio, ODR, |v| v & !mask);
-        });
+        let gpio = unsafe { &*litex_pac::gpio::GPIO };
+        let mask = 1u32 << self.index;
+        write_reg!(gpio, gpio, BRR, mask);
         Ok(())
     }
 
     fn set_high(&mut self) -> Result<(), Self::Error> {
-        interrupt::free(|_| {
-            let gpio = unsafe { &*litex_pac::gpio::GPIO };
-            let mask = 1u32 << self.index;
-            modify_reg!(gpio, gpio, ODR, |v| v | mask);
-        });
+        let gpio = unsafe { &*litex_pac::gpio::GPIO };
+        let mask = 1u32 << self.index;
+        write_reg!(gpio, gpio, BSR, mask);
         Ok(())
     }
 }
@@ -158,11 +154,12 @@ impl<MODE> ToggleableOutputPin for Pin<Output<MODE>> {
     type Error = Infallible;
 
     fn toggle(&mut self) -> Result<(), Self::Error> {
-        interrupt::free(|_| {
-            let gpio = unsafe { &*litex_pac::gpio::GPIO };
-            let mask = 1u32 << self.index;
-            modify_reg!(gpio, gpio, ODR, |v| v ^ mask);
-        });
-        Ok(())
+        let gpio = unsafe { &*litex_pac::gpio::GPIO };
+        let mask = 1u32 << self.index;
+        if read_reg!(gpio, gpio, ODR) & mask != 0 {
+            self.set_low()
+        } else {
+            self.set_high()
+        }
     }
 }

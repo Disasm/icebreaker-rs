@@ -52,6 +52,17 @@ class GPIOPeripheral(Module, AutoCSR):
         ]
         self.brr = CSRStorage(32, description="GPIO bit reset register", fields=fields)
 
+        self.comb += [
+            If(self.bsr.re,
+                self.odr.dat_w.eq(self.odr.storage | self.bsr.storage),
+            ).Elif(self.brr.re,
+                self.odr.dat_w.eq(self.odr.storage & ~self.brr.storage),
+            ).Else(
+                self.odr.dat_w.eq(self.odr.storage)
+            ),
+            self.odr.we.eq(self.bsr.re | self.brr.re),
+        ]
+
         for i in range(32):
             pad = None
             if i < len(pads):
